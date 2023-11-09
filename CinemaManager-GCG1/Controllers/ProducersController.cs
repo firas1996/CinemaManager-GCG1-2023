@@ -20,7 +20,7 @@ namespace CinemaManager_GCG1.Controllers
         // GET: ProducersController/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            return View(_context.Producers.Find(id));
         }
 
         // GET: ProducersController/Create
