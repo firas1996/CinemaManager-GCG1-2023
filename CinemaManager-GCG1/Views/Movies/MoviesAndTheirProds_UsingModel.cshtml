@@ -1,0 +1,21 @@
+﻿<table class="table tab">
+    <thead>
+        <tr>
+            <th>Movie Title</th>
+            <th>Movie Genre</th>
+            <th>Producer Name</th>
+            <th>Producer Nationality</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var pm in Model)
+        {
+            <tr>
+                <td>@pm.mTitle</td>
+                <td>@pm.mGenre</td>
+                <td>@pm.pName</td>
+                <td>@pm.pNat</td>
+            </tr>
+        }
+    </tbody>
+</table>

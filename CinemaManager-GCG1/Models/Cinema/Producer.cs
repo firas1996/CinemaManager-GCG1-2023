@@ -12,4 +12,6 @@ public partial class Producer
     public string Nationality { get; set; } = null!;
 
     public string Email { get; set; } = null!;
+
+    public virtual ICollection<Movie>? Movies { get; set; } = new List<Movie>();
 }
