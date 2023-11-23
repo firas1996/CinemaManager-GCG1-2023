@@ -48,6 +48,43 @@ namespace CinemaManager_GCG1.Controllers
             //ViewBag.abc = query.ToList();
             return View(query.ToList());
         }
+        public IActionResult SearchByTitle(string title)
+        {
+            var movies = _context.Movies.AsQueryable();
+            if (!String.IsNullOrEmpty(title))
+            {
+                //movies = from m in movies where m.Title.Contains(title) select m;
+                movies = movies.Where(m => m.Title.Contains(title));
+            }
+            return View(movies.ToList());
+        }
+        public IActionResult SearchByGenre(string genre)
+        {
+            var movies = _context.Movies.ToList();
+            if(String.IsNullOrEmpty(genre))
+            {
+                return View(movies);
+            }
+                var querry = movies.Where(m => m.Genre.Contains(genre));
+            return View(querry.ToList());
+        }
+        public IActionResult SearchByCritaire(string crit, string val)
+        {
+            var movies = _context.Movies.AsQueryable();
+            if(crit == "Title")
+            {
+                if (!String.IsNullOrEmpty(val))
+                {
+                movies= movies.Where(m => m.Title.Contains(val));
+                }
+                return View(movies.ToList());
+            }
+            if (!String.IsNullOrEmpty(val))
+            {
+                movies = movies.Where(m => m.Genre.Contains(val));
+            }
+            return View(movies.ToList());  
+        }
 
         // GET: Movies/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -74,7 +111,23 @@ namespace CinemaManager_GCG1.Controllers
             ViewData["ProducerId"] = new SelectList(_context.Producers, "Id", "Id");
             return View();
         }
+        public IActionResult SearchBy2(string genre ,string title)
+        {
+            var movies = _context.Movies.AsQueryable();
+            ViewBag.Genre = movies.Select(m => m.Genre).Distinct().ToList();
+            //g.Insert(0, "All");
 
+            //ViewBag.Genre = new SelectList(g);
+            if (genre != "All")
+            {
+                movies = movies.Where(m => m.Genre == genre);
+            }
+            if(!String.IsNullOrEmpty(title))
+            {
+                movies = movies.Where(m => m.Title.Contains(title));
+            }
+            return View(movies.ToList());
+        }
         // POST: Movies/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.

@@ -1,0 +1,65 @@
+﻿@model IEnumerable<CinemaManager_GCG1.Models.Cinema.Movie>
+
+@{
+    ViewData["Title"] = "SearchBy2";
+}
+
+<h1>SearchBy2</h1>
+@using(Html.BeginForm())
+{
+    @* <p>
+        Genre : @Html.DropDownList("genre",(SelectList)ViewBag.Genre)
+    Title: @Html.TextBox("Title")</p> *@
+    <label>Genre: </label>
+    <select name="genre">
+        <option value="All">All</option>
+        @foreach (var item in ViewBag.Genre)
+        {
+            <option value=@item>@item</option>
+        }
+    </select>
+    <label>Title: </label>
+    <input name="title" />
+    <input type="submit" value="Find"/>
+
+}
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Genre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Producer)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Genre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Producer.Id)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
